@@ -28,7 +28,6 @@ namespace Server
     /// </summary>
     public delegate void dgMessage(UserInfo sender, MessageEventArgs e);
     #endregion
-
     public partial class ServerMain : Form
     {
         private byte[] szData;
@@ -115,20 +114,57 @@ namespace Server
             sbMsg.Append(sMsg);
 
             //전체 유저에게 메시지 전송
-            //AllUser_Send(sbMsg.ToString());
+            AllUser_Send(sbMsg.ToString());
         }
+
+
+        /// <summary>
+        /// 접속중인 모든 유저에게 메시지를 보냅니다.
+        /// </summary>
+        /// <param name="sMsg"></param>
+        private void AllUser_Send(string sMsg)
+        {
+            //모든 유저에게 메시지를 전송 한다.
+            foreach (UserInfo insUser in m_listUser)
+            {
+                insUser.SendMsg_User(sMsg);
+            }
+
+            //로그 출력
+            DisplayLog(sMsg);
+        }
+        /// <summary>
+        /// 전체 유저중 지정한 유저를 제외하고 메시지를 전송 합니다.
+        /// </summary>
+        /// <param name="sMsg"></param>
+        /// <param name="insUser">제외할 유저</param>
+        private void AllUser_Send(string sMsg, UserInfo insUser)
+        {
+            //모든 유저에게 메시지를 전송 한다.
+            foreach (UserInfo insUser_Temp in m_listUser)
+            {
+                //제외 유저
+                if (insUser_Temp.UserID != insUser.UserID)
+                {
+                    //제외 유저가 아니라면 메시지를 보낸다.
+                    insUser_Temp.SendMsg_User(sMsg);
+                }
+            }
+
+            //로그 출력
+            DisplayLog(sMsg);
+        }
+        #region 유저이벤트
         void insUser_OnConnected(UserInfo sender)
         {
-
-            /*
             //유저 추가는 'Accept_Completed'에서 하므로 
-            //무결성 검사가 끝난 유저를 처리
+            //여기서 하는 것은 무결성 검사가 끝난 유저를 처리 해주는 것이다.
 
             StringBuilder sbMsg = new StringBuilder(); ;
 
+            //로그인이 완료된 유저에게 유저 리스트를 보낸다.
+            //Commd_User_List_Get(sender);
 
-            //로그인이 완료된 유저에게 유저 리스트 전속
-            Commd_User_List_Get(sender);
             //전체 유저에게 접속자를 알린다.
             sbMsg.Clear();
             sbMsg.Append(gCommand.Command.User_Connect.GetHashCode());
@@ -137,17 +173,20 @@ namespace Server
 
             //전체 유저에게 메시지 전송(지금 로그인 한 접속자는 제외)
             AllUser_Send(sbMsg.ToString(), sender);
-            */
-
-            //Commd_RoomList_Get(sender);
 
             //로그 유저 리스트에 추가
             this.Invoke(new Action(
                 delegate ()
                 {
-                    UserList.Items.Add(sender.UserIP);
+                    UserList.Items.Add(sender.UserID);
                 }));
 
+            //로그 남기기
+            sbMsg.Clear();
+            sbMsg.Append("*** 접속자 : ");
+            sbMsg.Append(sender.UserID);
+            sbMsg.Append(" ***");
+            DisplayLog(sbMsg.ToString());
         }
 
         /// <summary>
@@ -200,7 +239,7 @@ namespace Server
                     break;
             }
         }
-
+        #endregion
         /// <summary>
         /// 콘솔 명령어 구분 실행
         /// </summary>
@@ -272,6 +311,26 @@ namespace Server
         /// <param name="e"></param>
         private void Cmmd_bt_Click(object sender, EventArgs e)
         {
+
+        }
+        /// <summary>
+        /// 받아온 메시지를 출력 한다.
+        /// </summary>
+        /// <param name="nMessage"></param>
+        /// <param name="nType"></param>
+        public void DisplayLog(String nMessage)
+        {
+            StringBuilder buffer = new StringBuilder();
+
+            //출력할 메시지 완성
+            buffer.Append(nMessage);
+
+            //출력
+            this.Invoke(new Action(
+                        delegate ()
+                        {
+                            MainLog.Items.Add(nMessage);
+                        }));
 
         }
     }
