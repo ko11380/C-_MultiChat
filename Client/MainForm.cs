@@ -114,7 +114,7 @@ namespace Client
 
                 DisplayMsg("*** 서버 연결 성공 ***");
                 //서버 연결이 성공하면 id체크를 시작한다.
-                //Login();
+                Login();
             }
             else
             {
@@ -146,6 +146,18 @@ namespace Client
             {
                 Disconnection();
             }
+        }
+        /// <summary>
+        /// 아이디 체크 요청
+        /// </summary>
+        private void Login()
+        {
+            StringBuilder sbData = new StringBuilder();
+            sbData.Append(gCommand.Command.ID_Check.GetHashCode());
+            sbData.Append(claGlobal.g_Division);
+            sbData.Append(id.Text);
+
+            SendMsg(sbData.ToString());
         }
 
         /// <summary>
@@ -189,19 +201,19 @@ namespace Client
                         Command_Msg(sData[1]);
                         break;
                     case gCommand.Command.ID_Check_Ok:    //아이디 성공
-                        //SendMeg_IDCheck_Ok();
+                        SendMeg_IDCheck_Ok();
                         break;
                     case gCommand.Command.ID_Check_Fail:  //아이디 실패
-                        //SendMeg_IDCheck_Fail();
+                        SendMeg_IDCheck_Fail();
                         break;
                     case gCommand.Command.User_Connect:   //다른 유저가 접속 했다.
-                        //SendMeg_User_Connect(sData[1]);
+                        SendMeg_User_Connect(sData[1]);
                         break;
                     case gCommand.Command.User_Disonnect: //다른 유저가 접속을 끊었다.
-                        //SendMeg_User_Disconnect(sData[1]);
+                        SendMeg_User_Disconnect(sData[1]);
                         break;
                     case gCommand.Command.User_List:  //유저 리스트 갱신
-                        //SendMeg_User_List(sData[1]);
+                        SendMeg_User_List(sData[1]);
                         break;
                 }
             }
@@ -258,6 +270,7 @@ namespace Client
             saeaServer.UserToken = mdSendMsg;
             //보내기
             m_socketMe.SendAsync(saeaServer);
+
         }
 
         /// <summary>
@@ -285,10 +298,10 @@ namespace Client
                     MainList.Enabled = false;
                     UserList.Enabled = false;
 
-                    Login.Enabled = true;
+                    LoginPanal.Enabled = true;
                     break;
                 case typeState.Connecting:
-                    Login.Enabled = false;
+                    LoginPanal.Enabled = false;
                     break;
                 case typeState.Connect:
 
@@ -296,7 +309,108 @@ namespace Client
                     UserList.Enabled = true;
 
                     break;
+            }
+        }
+        /// <summary>
+		/// 유저리스트 
+		/// </summary>
+		/// <param name="sUserList"></param>
+		private void SendMeg_User_List(string sUserList)
+        {
+            this.Invoke(new Action(
+                delegate ()
+                {
+                    //리스트를 비우고
+                    UserList.Items.Clear();
 
+                    //리스트를 다시 채워준다.
+                    string[] sList = sUserList.Split(',');
+                    for (int i = 0; i < sList.Length; ++i)
+                    {
+                        UserList.Items.Add(sList[i]);
+                    }
+
+                }));
+        }
+        /// <summary>
+        /// 다른유저가 접속
+        /// </summary>
+        private void SendMeg_User_Connect(string sUserID)
+        {
+            this.Invoke(new Action(
+                        delegate ()
+                        {
+                            UserList.Items.Add(sUserID);
+                        }));
+        }
+
+        /// <summary>
+        /// 다른유저 로그아웃
+        /// </summary>
+        /// <param name="sUserID"></param>
+        private void SendMeg_User_Disconnect(string sUserID)
+        {
+            this.Invoke(new Action(
+                        delegate ()
+                        {
+                            UserList.Items.RemoveAt(UserList.FindString(sUserID));
+                        }));
+        }
+
+        /// <summary>
+        /// 아이디 성공
+        /// </summary>
+        private void SendMeg_IDCheck_Ok()
+        {
+
+            //UI갱신
+            Set_UI(typeState.Connect);
+
+            //아이디확인이 되었으면 서버에 로그인 요청을 하여 로그인을 끝낸다.
+            StringBuilder sbData = new StringBuilder();
+            sbData.Append(gCommand.Command.Login.GetHashCode());
+            sbData.Append(claGlobal.g_Division);
+
+            SendMsg(sbData.ToString());
+        }
+
+        /// <summary>
+        /// 아이디체크 실패
+        /// </summary>
+        private void SendMeg_IDCheck_Fail()
+        {
+            DisplayMsg("로그인 실패 : 다른 아이디를 이용해 주세요.");
+            //연결 끊기
+            Disconnection();
+        }
+
+
+        /// <summary>
+        /// 메시지전송
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Sand_Msg_Click(object sender, EventArgs e)
+        {
+            StringBuilder sbData = new StringBuilder();
+            sbData.Append(gCommand.Command.Msg.GetHashCode());
+            sbData.Append(claGlobal.g_Division);
+            sbData.Append(Msg_txt.Text);
+
+            SendMsg(sbData.ToString());
+
+            Msg_txt.Text = ""; //메시지 전송후 초기화
+        }
+        /// <summary>
+        /// 메시지전송 엔터키 입력
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Msg_txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                Sand_Msg_Click(sender, e);
             }
         }
     }

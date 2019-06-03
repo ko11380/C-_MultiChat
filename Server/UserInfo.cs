@@ -175,7 +175,7 @@ namespace Server
                         SendMeg_Main(sData[1], typeCommand);
                         break;
                     case gCommand.Command.ID_Check:   //아이디 체크
-                        SendMeg_Main(sData[1], sData[2], typeCommand);
+                        SendMeg_Main(sData[1], typeCommand);
                         break;
                     case gCommand.Command.User_List_Get:  //유저리스트 갱신 요청
                         SendMeg_Main("", typeCommand);

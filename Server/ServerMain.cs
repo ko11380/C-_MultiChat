@@ -163,7 +163,7 @@ namespace Server
             StringBuilder sbMsg = new StringBuilder(); ;
 
             //로그인이 완료된 유저에게 유저 리스트를 보낸다.
-            //Commd_User_List_Get(sender);
+            Commd_User_List_Get(sender);
 
             //전체 유저에게 접속자를 알린다.
             sbMsg.Clear();
@@ -232,10 +232,13 @@ namespace Server
                     Commd_SendMsg(sbMsg.ToString());
                     break;
                 case gCommand.Command.ID_Check:   //id체크
-                    //Commd_IDCheck(sender, e.m_strMsg, e.m_strPw);
+                    Commd_IDCheck(sender, e.m_strMsg);
                     break;
                 case gCommand.Command.Connect_Info:
                     //Add_CntUser(sender, e.m_strMsg);
+                    break;
+                case gCommand.Command.User_List_Get:  //유저 리스트 갱신 요청
+                    Commd_User_List_Get(sender);
                     break;
             }
         }
@@ -300,19 +303,10 @@ namespace Server
         {
                 if (e.KeyChar == '\r')
                 {
-                Cmmd_bt_Click(sender, e);
+                SendCommand_Click(sender, e);
                 }
         }
 
-        /// <summary>
-        /// 콘솔 명령어 수행 - Button Click
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Cmmd_bt_Click(object sender, EventArgs e)
-        {
-
-        }
         /// <summary>
         /// 받아온 메시지를 출력 한다.
         /// </summary>
@@ -332,6 +326,76 @@ namespace Server
                             MainLog.Items.Add(nMessage);
                         }));
 
+        }
+        /// <summary>
+        /// 명령 처리 - 유저 리스트 갱신 요청
+        /// </summary>
+        /// <param name="insUser"></param>
+        private void Commd_User_List_Get(UserInfo insUser)
+        {
+            StringBuilder sbList = new StringBuilder();
+
+            //명령 만들기
+            sbList.Append(gCommand.Command.User_List.GetHashCode());
+            sbList.Append(claGlobal.g_Division);
+
+            //리스트 만들기
+            foreach (UserInfo insUser_Temp in m_listUser)
+            {
+                sbList.Append(insUser_Temp.UserID);
+                sbList.Append(",");
+            }
+
+            //요청에 응답해준다.
+            insUser.SendMsg_User(sbList.ToString());
+        }
+
+        /// <summary>
+		/// 명령 처리 - ID체크
+		/// </summary>
+		/// <param name="sID"></param>
+		private void Commd_IDCheck(UserInfo insUser, string sID)
+        {
+            //사용 가능 여부
+            bool bReturn = true;
+
+            //모든 유저의 아이디 체크
+            foreach (UserInfo insUserTemp in m_listUser)
+            {
+                if (insUserTemp.UserID == sID)
+                {
+                    //같은 유저가 있다!
+                    //같은 유저가 있으면 그만 검사한다.
+                    bReturn = false;
+                    break;
+                }
+            }
+
+            if (true == bReturn)
+            {
+                //사용 가능
+
+                //아이디를 지정하고
+                insUser.UserID = sID;
+
+                //유저에게 로그인이 성공했음을 알림
+                StringBuilder sbMsg = new StringBuilder();
+                sbMsg.Append(gCommand.Command.ID_Check_Ok.GetHashCode());
+                sbMsg.Append(claGlobal.g_Division);
+                insUser.SendMsg_User(sbMsg.ToString());
+
+            }
+            else
+            {
+                //실패
+
+                StringBuilder sbMsg = new StringBuilder();
+
+                sbMsg.Append(gCommand.Command.ID_Check_Fail.GetHashCode().ToString());
+                sbMsg.Append(claGlobal.g_Division);
+
+                insUser.SendMsg_User(sbMsg.ToString());
+            }
         }
     }
 }

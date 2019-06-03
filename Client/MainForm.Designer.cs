@@ -30,15 +30,15 @@
         {
             this.UserList = new System.Windows.Forms.ListBox();
             this.MainList = new System.Windows.Forms.ListBox();
-            this.Login = new System.Windows.Forms.Panel();
+            this.LoginPanal = new System.Windows.Forms.Panel();
             this.Connect = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.port = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Login.SuspendLayout();
+            this.Msg_txt = new System.Windows.Forms.TextBox();
+            this.Sand_Msg = new System.Windows.Forms.Button();
+            this.LoginPanal.SuspendLayout();
             this.SuspendLayout();
             // 
             // UserList
@@ -60,19 +60,19 @@
             this.MainList.Size = new System.Drawing.Size(350, 280);
             this.MainList.TabIndex = 2;
             // 
-            // Login
+            // LoginPanal
             // 
-            this.Login.BackColor = System.Drawing.Color.Silver;
-            this.Login.Controls.Add(this.Connect);
-            this.Login.Controls.Add(this.id);
-            this.Login.Controls.Add(this.label2);
-            this.Login.Controls.Add(this.port);
-            this.Login.Controls.Add(this.label1);
-            this.Login.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Login.Location = new System.Drawing.Point(0, 0);
-            this.Login.Name = "Login";
-            this.Login.Size = new System.Drawing.Size(521, 38);
-            this.Login.TabIndex = 3;
+            this.LoginPanal.BackColor = System.Drawing.Color.Silver;
+            this.LoginPanal.Controls.Add(this.Connect);
+            this.LoginPanal.Controls.Add(this.id);
+            this.LoginPanal.Controls.Add(this.label2);
+            this.LoginPanal.Controls.Add(this.port);
+            this.LoginPanal.Controls.Add(this.label1);
+            this.LoginPanal.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LoginPanal.Location = new System.Drawing.Point(0, 0);
+            this.LoginPanal.Name = "LoginPanal";
+            this.LoginPanal.Size = new System.Drawing.Size(521, 38);
+            this.LoginPanal.TabIndex = 3;
             // 
             // Connect
             // 
@@ -120,36 +120,38 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "포트 :";
             // 
-            // textBox1
+            // Msg_txt
             // 
-            this.textBox1.Location = new System.Drawing.Point(3, 324);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(350, 21);
-            this.textBox1.TabIndex = 4;
+            this.Msg_txt.Location = new System.Drawing.Point(3, 324);
+            this.Msg_txt.Name = "Msg_txt";
+            this.Msg_txt.Size = new System.Drawing.Size(350, 21);
+            this.Msg_txt.TabIndex = 4;
+            this.Msg_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Msg_txt_KeyPress);
             // 
-            // button1
+            // Sand_Msg
             // 
-            this.button1.Location = new System.Drawing.Point(356, 324);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 21);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "보내기";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Sand_Msg.Location = new System.Drawing.Point(356, 324);
+            this.Sand_Msg.Name = "Sand_Msg";
+            this.Sand_Msg.Size = new System.Drawing.Size(162, 21);
+            this.Sand_Msg.TabIndex = 5;
+            this.Sand_Msg.Text = "보내기";
+            this.Sand_Msg.UseVisualStyleBackColor = true;
+            this.Sand_Msg.Click += new System.EventHandler(this.Sand_Msg_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.Login);
+            this.ClientSize = new System.Drawing.Size(521, 394);
+            this.Controls.Add(this.Sand_Msg);
+            this.Controls.Add(this.Msg_txt);
+            this.Controls.Add(this.LoginPanal);
             this.Controls.Add(this.UserList);
             this.Controls.Add(this.MainList);
             this.Name = "MainForm";
             this.Text = "Form1";
-            this.Login.ResumeLayout(false);
-            this.Login.PerformLayout();
+            this.LoginPanal.ResumeLayout(false);
+            this.LoginPanal.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,14 +161,14 @@
 
         private System.Windows.Forms.ListBox UserList;
         private System.Windows.Forms.ListBox MainList;
-        private System.Windows.Forms.Panel Login;
+        private System.Windows.Forms.Panel LoginPanal;
         private System.Windows.Forms.TextBox id;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox port;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Connect;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox Msg_txt;
+        private System.Windows.Forms.Button Sand_Msg;
     }
 }
 

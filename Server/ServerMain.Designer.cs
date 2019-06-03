@@ -75,7 +75,7 @@
             this.Cmmd_bt.TabIndex = 3;
             this.Cmmd_bt.Text = "Send";
             this.Cmmd_bt.UseVisualStyleBackColor = true;
-            this.Cmmd_bt.Click += new System.EventHandler(this.Cmmd_bt_Click);
+            this.Cmmd_bt.Click += new System.EventHandler(this.SendCommand_Click);
             // 
             // Cmmd_tb
             // 
