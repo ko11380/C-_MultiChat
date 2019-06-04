@@ -43,6 +43,7 @@ namespace Server
 
         public ServerMain()
         {
+            
             InitializeComponent();
         }
 

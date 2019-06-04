@@ -48,6 +48,8 @@ namespace Client
         public MainForm()
         {
             InitializeComponent();
+            Set_UI(typeState.None);
+
         }
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
@@ -112,7 +114,7 @@ namespace Client
                 //받음 보냄
                 m_socketMe.ReceiveAsync(saeaReceiveArgs);
 
-                DisplayMsg("*** 서버 연결 성공 ***");
+                DisplayMsg("※ 서버 연결 성공");
                 //서버 연결이 성공하면 id체크를 시작한다.
                 Login();
             }
@@ -171,7 +173,7 @@ namespace Client
             //유아이를 세팅하고
             Set_UI(typeState.None);
 
-            DisplayMsg("*** 서버 연결 끊김 ***");
+            DisplayMsg("※ 서버 연결 끊김");
         }
 
 
@@ -298,6 +300,17 @@ namespace Client
                     MainList.Enabled = false;
                     UserList.Enabled = false;
 
+                    Msg_txt.Enabled = false;
+                    Sand_Msg.Enabled = false;
+
+                    Select_File.Enabled = false;
+                    Select_img.Enabled = false;
+
+                    file_link.Enabled = false;
+                    DialogCall.Enabled = false;
+                    Sand.Enabled = false;
+
+
                     LoginPanal.Enabled = true;
                     break;
                 case typeState.Connecting:
@@ -307,6 +320,17 @@ namespace Client
 
                     MainList.Enabled = true;
                     UserList.Enabled = true;
+
+
+                    Msg_txt.Enabled = true;
+                    Sand_Msg.Enabled = true;
+
+                    Select_File.Enabled = true;
+                    Select_img.Enabled = true;
+
+                    file_link.Enabled = true;
+                    DialogCall.Enabled = true;
+                    Sand.Enabled = true;
 
                     break;
             }
@@ -412,6 +436,30 @@ namespace Client
             {
                 Sand_Msg_Click(sender, e);
             }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog link = new OpenFileDialog();
+
+            if (Select_img.Checked == true)
+            {
+                link.DefaultExt = "jpg";
+                link.Filter = "image files (*.jpg;*.png)|*.jpg;*.png";
+            }
+            link.ShowDialog();
+            if(link.FileName.Length > 0)
+                file_link.Text = link.FileName;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Sand_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
