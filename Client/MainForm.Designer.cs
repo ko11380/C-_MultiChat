@@ -31,19 +31,25 @@
             this.UserList = new System.Windows.Forms.ListBox();
             this.MainList = new System.Windows.Forms.ListBox();
             this.LoginPanal = new System.Windows.Forms.Panel();
+            this.Title = new System.Windows.Forms.Label();
             this.Connect = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.port = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Msg_txt = new System.Windows.Forms.TextBox();
-            this.Sand_Msg = new System.Windows.Forms.Button();
             this.DialogCall = new System.Windows.Forms.Button();
             this.file_link = new System.Windows.Forms.TextBox();
             this.Sand = new System.Windows.Forms.Button();
             this.Select_File = new System.Windows.Forms.RadioButton();
             this.Select_img = new System.Windows.Forms.RadioButton();
-            this.Title = new System.Windows.Forms.Label();
+            this.iTalk_TextBox = new System.Windows.Forms.TextBox();
+            this.File_List = new System.Windows.Forms.ListView();
+            this.전송자 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.종류 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.다운로드 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.list = new System.Windows.Forms.Button();
+            this.파일이름 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Sand_Msg = new iTalk.iTalk_Button_2();
             this.LoginPanal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +57,7 @@
             // 
             this.UserList.FormattingEnabled = true;
             this.UserList.ItemHeight = 12;
-            this.UserList.Location = new System.Drawing.Point(391, 41);
+            this.UserList.Location = new System.Drawing.Point(396, 44);
             this.UserList.Name = "UserList";
             this.UserList.Size = new System.Drawing.Size(127, 280);
             this.UserList.TabIndex = 1;
@@ -60,10 +66,9 @@
             // 
             this.MainList.FormattingEnabled = true;
             this.MainList.ItemHeight = 12;
-            this.MainList.Location = new System.Drawing.Point(3, 41);
+            this.MainList.Location = new System.Drawing.Point(8, 44);
             this.MainList.Margin = new System.Windows.Forms.Padding(0);
             this.MainList.Name = "MainList";
-            this.MainList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.MainList.Size = new System.Drawing.Size(385, 280);
             this.MainList.TabIndex = 2;
             // 
@@ -79,122 +84,8 @@
             this.LoginPanal.Dock = System.Windows.Forms.DockStyle.Top;
             this.LoginPanal.Location = new System.Drawing.Point(0, 0);
             this.LoginPanal.Name = "LoginPanal";
-            this.LoginPanal.Size = new System.Drawing.Size(521, 38);
+            this.LoginPanal.Size = new System.Drawing.Size(531, 38);
             this.LoginPanal.TabIndex = 3;
-            // 
-            // Connect
-            // 
-            this.Connect.Location = new System.Drawing.Point(436, 9);
-            this.Connect.Name = "Connect";
-            this.Connect.Size = new System.Drawing.Size(76, 21);
-            this.Connect.TabIndex = 4;
-            this.Connect.Text = "접속하기";
-            this.Connect.UseVisualStyleBackColor = true;
-            this.Connect.Click += new System.EventHandler(this.Connect_Click);
-            // 
-            // id
-            // 
-            this.id.Location = new System.Drawing.Point(354, 9);
-            this.id.Name = "id";
-            this.id.Size = new System.Drawing.Size(77, 21);
-            this.id.TabIndex = 3;
-            this.id.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 12F);
-            this.label2.Location = new System.Drawing.Point(297, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "닉네임 :";
-            this.label2.Click += new System.EventHandler(this.Label2_Click);
-            // 
-            // port
-            // 
-            this.port.Location = new System.Drawing.Point(211, 9);
-            this.port.Name = "port";
-            this.port.Size = new System.Drawing.Size(77, 21);
-            this.port.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F);
-            this.label1.Location = new System.Drawing.Point(164, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "포트 :";
-            // 
-            // Msg_txt
-            // 
-            this.Msg_txt.Location = new System.Drawing.Point(3, 324);
-            this.Msg_txt.Name = "Msg_txt";
-            this.Msg_txt.Size = new System.Drawing.Size(385, 21);
-            this.Msg_txt.TabIndex = 4;
-            this.Msg_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Msg_txt_KeyPress);
-            // 
-            // Sand_Msg
-            // 
-            this.Sand_Msg.Location = new System.Drawing.Point(391, 324);
-            this.Sand_Msg.Name = "Sand_Msg";
-            this.Sand_Msg.Size = new System.Drawing.Size(127, 21);
-            this.Sand_Msg.TabIndex = 5;
-            this.Sand_Msg.Text = "보내기";
-            this.Sand_Msg.UseVisualStyleBackColor = true;
-            this.Sand_Msg.Click += new System.EventHandler(this.Sand_Msg_Click);
-            // 
-            // DialogCall
-            // 
-            this.DialogCall.Location = new System.Drawing.Point(391, 348);
-            this.DialogCall.Name = "DialogCall";
-            this.DialogCall.Size = new System.Drawing.Size(29, 21);
-            this.DialogCall.TabIndex = 6;
-            this.DialogCall.Text = "...";
-            this.DialogCall.UseVisualStyleBackColor = true;
-            this.DialogCall.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // file_link
-            // 
-            this.file_link.Location = new System.Drawing.Point(107, 348);
-            this.file_link.Name = "file_link";
-            this.file_link.ReadOnly = true;
-            this.file_link.Size = new System.Drawing.Size(281, 21);
-            this.file_link.TabIndex = 7;
-            // 
-            // Sand
-            // 
-            this.Sand.Location = new System.Drawing.Point(426, 348);
-            this.Sand.Name = "Sand";
-            this.Sand.Size = new System.Drawing.Size(92, 21);
-            this.Sand.TabIndex = 8;
-            this.Sand.Text = "전송";
-            this.Sand.UseVisualStyleBackColor = true;
-            this.Sand.Click += new System.EventHandler(this.Sand_Click);
-            // 
-            // Select_File
-            // 
-            this.Select_File.AutoSize = true;
-            this.Select_File.Location = new System.Drawing.Point(8, 351);
-            this.Select_File.Name = "Select_File";
-            this.Select_File.Size = new System.Drawing.Size(43, 16);
-            this.Select_File.TabIndex = 9;
-            this.Select_File.TabStop = true;
-            this.Select_File.Text = "File";
-            this.Select_File.UseVisualStyleBackColor = true;
-            // 
-            // Select_img
-            // 
-            this.Select_img.AutoSize = true;
-            this.Select_img.Location = new System.Drawing.Point(57, 351);
-            this.Select_img.Name = "Select_img";
-            this.Select_img.Size = new System.Drawing.Size(44, 16);
-            this.Select_img.TabIndex = 10;
-            this.Select_img.TabStop = true;
-            this.Select_img.Text = "img";
-            this.Select_img.UseVisualStyleBackColor = true;
             // 
             // Title
             // 
@@ -206,23 +97,197 @@
             this.Title.TabIndex = 5;
             this.Title.Text = "Multi Chatting";
             // 
+            // Connect
+            // 
+            this.Connect.Location = new System.Drawing.Point(447, 9);
+            this.Connect.Name = "Connect";
+            this.Connect.Size = new System.Drawing.Size(76, 21);
+            this.Connect.TabIndex = 4;
+            this.Connect.Text = "접속하기";
+            this.Connect.UseVisualStyleBackColor = true;
+            this.Connect.Click += new System.EventHandler(this.Connect_Click);
+            // 
+            // id
+            // 
+            this.id.Location = new System.Drawing.Point(365, 9);
+            this.id.Name = "id";
+            this.id.Size = new System.Drawing.Size(77, 21);
+            this.id.TabIndex = 3;
+            this.id.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F);
+            this.label2.Location = new System.Drawing.Point(308, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 18);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "닉네임 :";
+            this.label2.Click += new System.EventHandler(this.Label2_Click);
+            // 
+            // port
+            // 
+            this.port.Location = new System.Drawing.Point(222, 9);
+            this.port.Name = "port";
+            this.port.Size = new System.Drawing.Size(77, 21);
+            this.port.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 12F);
+            this.label1.Location = new System.Drawing.Point(175, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 18);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "포트 :";
+            // 
+            // DialogCall
+            // 
+            this.DialogCall.Location = new System.Drawing.Point(396, 352);
+            this.DialogCall.Name = "DialogCall";
+            this.DialogCall.Size = new System.Drawing.Size(29, 21);
+            this.DialogCall.TabIndex = 6;
+            this.DialogCall.Text = "...";
+            this.DialogCall.UseVisualStyleBackColor = true;
+            this.DialogCall.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // file_link
+            // 
+            this.file_link.Location = new System.Drawing.Point(112, 352);
+            this.file_link.Name = "file_link";
+            this.file_link.ReadOnly = true;
+            this.file_link.Size = new System.Drawing.Size(281, 21);
+            this.file_link.TabIndex = 7;
+            // 
+            // Sand
+            // 
+            this.Sand.Location = new System.Drawing.Point(428, 352);
+            this.Sand.Name = "Sand";
+            this.Sand.Size = new System.Drawing.Size(95, 21);
+            this.Sand.TabIndex = 8;
+            this.Sand.Text = "Upload";
+            this.Sand.UseVisualStyleBackColor = true;
+            this.Sand.Click += new System.EventHandler(this.Sand_Click);
+            // 
+            // Select_File
+            // 
+            this.Select_File.AutoSize = true;
+            this.Select_File.Checked = true;
+            this.Select_File.Location = new System.Drawing.Point(13, 355);
+            this.Select_File.Name = "Select_File";
+            this.Select_File.Size = new System.Drawing.Size(43, 16);
+            this.Select_File.TabIndex = 9;
+            this.Select_File.TabStop = true;
+            this.Select_File.Text = "File";
+            this.Select_File.UseVisualStyleBackColor = true;
+            // 
+            // Select_img
+            // 
+            this.Select_img.AutoSize = true;
+            this.Select_img.Location = new System.Drawing.Point(62, 355);
+            this.Select_img.Name = "Select_img";
+            this.Select_img.Size = new System.Drawing.Size(44, 16);
+            this.Select_img.TabIndex = 10;
+            this.Select_img.Text = "img";
+            this.Select_img.UseVisualStyleBackColor = true;
+            // 
+            // iTalk_TextBox
+            // 
+            this.iTalk_TextBox.Location = new System.Drawing.Point(8, 327);
+            this.iTalk_TextBox.Name = "iTalk_TextBox";
+            this.iTalk_TextBox.Size = new System.Drawing.Size(385, 21);
+            this.iTalk_TextBox.TabIndex = 15;
+            this.iTalk_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ITalk_TextBox_KeyPress);
+            // 
+            // File_List
+            // 
+            this.File_List.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.File_List.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.File_List.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.전송자,
+            this.종류,
+            this.파일이름,
+            this.다운로드});
+            this.File_List.Location = new System.Drawing.Point(8, 397);
+            this.File_List.Name = "File_List";
+            this.File_List.Size = new System.Drawing.Size(515, 10);
+            this.File_List.TabIndex = 16;
+            this.File_List.UseCompatibleStateImageBehavior = false;
+            this.File_List.View = System.Windows.Forms.View.Details;
+            // 
+            // 전송자
+            // 
+            this.전송자.Text = "전송자";
+            this.전송자.Width = 86;
+            // 
+            // 종류
+            // 
+            this.종류.Text = "종류";
+            this.종류.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.종류.Width = 74;
+            // 
+            // 다운로드
+            // 
+            this.다운로드.Text = "다운로드";
+            this.다운로드.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.다운로드.Width = 254;
+            // 
+            // list
+            // 
+            this.list.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.list.Font = new System.Drawing.Font("Arial", 6F);
+            this.list.Location = new System.Drawing.Point(222, 379);
+            this.list.Name = "list";
+            this.list.Size = new System.Drawing.Size(84, 12);
+            this.list.TabIndex = 17;
+            this.list.Text = "▼";
+            this.list.UseVisualStyleBackColor = true;
+            this.list.Click += new System.EventHandler(this.List_Click);
+            // 
+            // 파일이름
+            // 
+            this.파일이름.Text = "파일이름";
+            this.파일이름.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.파일이름.Width = 91;
+            // 
+            // Sand_Msg
+            // 
+            this.Sand_Msg.BackColor = System.Drawing.Color.Transparent;
+            this.Sand_Msg.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.Sand_Msg.ForeColor = System.Drawing.Color.White;
+            this.Sand_Msg.Image = null;
+            this.Sand_Msg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Sand_Msg.Location = new System.Drawing.Point(396, 327);
+            this.Sand_Msg.Name = "Sand_Msg";
+            this.Sand_Msg.Size = new System.Drawing.Size(127, 21);
+            this.Sand_Msg.TabIndex = 13;
+            this.Sand_Msg.Text = "보내기";
+            this.Sand_Msg.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.Sand_Msg.Click += new System.EventHandler(this.Sand_Msg_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 372);
+            this.ClientSize = new System.Drawing.Size(531, 352);
+            this.Controls.Add(this.list);
+            this.Controls.Add(this.File_List);
+            this.Controls.Add(this.iTalk_TextBox);
+            this.Controls.Add(this.Sand_Msg);
             this.Controls.Add(this.Select_img);
             this.Controls.Add(this.Select_File);
             this.Controls.Add(this.Sand);
             this.Controls.Add(this.file_link);
             this.Controls.Add(this.DialogCall);
-            this.Controls.Add(this.Sand_Msg);
-            this.Controls.Add(this.Msg_txt);
             this.Controls.Add(this.LoginPanal);
             this.Controls.Add(this.UserList);
             this.Controls.Add(this.MainList);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.LoginPanal.ResumeLayout(false);
             this.LoginPanal.PerformLayout();
@@ -241,14 +306,20 @@
         private System.Windows.Forms.TextBox port;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Connect;
-        private System.Windows.Forms.TextBox Msg_txt;
-        private System.Windows.Forms.Button Sand_Msg;
         private System.Windows.Forms.Button DialogCall;
         private System.Windows.Forms.TextBox file_link;
         private System.Windows.Forms.Button Sand;
         private System.Windows.Forms.RadioButton Select_File;
         private System.Windows.Forms.RadioButton Select_img;
         private System.Windows.Forms.Label Title;
+        private iTalk.iTalk_Button_2 Sand_Msg;
+        private System.Windows.Forms.TextBox iTalk_TextBox;
+        private System.Windows.Forms.ListView File_List;
+        private System.Windows.Forms.ColumnHeader 전송자;
+        private System.Windows.Forms.ColumnHeader 종류;
+        private System.Windows.Forms.ColumnHeader 다운로드;
+        private System.Windows.Forms.Button list;
+        private System.Windows.Forms.ColumnHeader 파일이름;
     }
 }
 

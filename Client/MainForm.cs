@@ -74,6 +74,7 @@ namespace Client
             }
             else
             {
+                UserList.Items.Clear();
                 //ui setting
                 Set_UI(typeState.Connecting);
 
@@ -103,15 +104,12 @@ namespace Client
             {
                 MessageData mdReceiveMsg = new MessageData();
 
-                //서버에 보낼 객체를 만든다.
+
                 SocketAsyncEventArgs saeaReceiveArgs = new SocketAsyncEventArgs();
-                //보낼 데이터를 설정하고
                 saeaReceiveArgs.UserToken = mdReceiveMsg;
-                //데이터 길이 세팅
                 saeaReceiveArgs.SetBuffer(mdReceiveMsg.GetBuffer(), 0, 4);
-                //받음 완료 이벤트 연결
                 saeaReceiveArgs.Completed += new EventHandler<SocketAsyncEventArgs>(Recieve_Completed);
-                //받음 보냄
+
                 m_socketMe.ReceiveAsync(saeaReceiveArgs);
 
                 DisplayMsg("※ 서버 연결 성공");
@@ -163,14 +161,12 @@ namespace Client
         }
 
         /// <summary>
-        /// 접속이 끊겼다.
+        /// 접속 끊킴
         /// </summary>
         private void Disconnection()
         {
-            //접속 끊김
             m_socketMe = null;
 
-            //유아이를 세팅하고
             Set_UI(typeState.None);
 
             DisplayMsg("※ 서버 연결 끊김");
@@ -208,10 +204,10 @@ namespace Client
                     case gCommand.Command.ID_Check_Fail:  //아이디 실패
                         SendMeg_IDCheck_Fail();
                         break;
-                    case gCommand.Command.User_Connect:   //다른 유저가 접속 했다.
+                    case gCommand.Command.User_Connect:   //다른 유저가 접속
                         SendMeg_User_Connect(sData[1]);
                         break;
-                    case gCommand.Command.User_Disonnect: //다른 유저가 접속을 끊었다.
+                    case gCommand.Command.User_Disconnect: //다른 유저가 접속해제
                         SendMeg_User_Disconnect(sData[1]);
                         break;
                     case gCommand.Command.User_List:  //유저 리스트 갱신
@@ -248,6 +244,7 @@ namespace Client
                         {
                             MainList.Items.Add(nMessage);
                         }));
+            MainList.SelectedIndex = MainList.Items.Count - 1;
 
         }
 
@@ -274,7 +271,13 @@ namespace Client
             m_socketMe.SendAsync(saeaServer);
 
         }
+        /// <summary>
+        /// 서버로 데이터를 전달 합니다.
+        /// </summary>
+        private void SendData()
+        {
 
+        }
         /// <summary>
         /// 메시지 보내기 완료
         /// </summary>
@@ -300,7 +303,7 @@ namespace Client
                     MainList.Enabled = false;
                     UserList.Enabled = false;
 
-                    Msg_txt.Enabled = false;
+                    iTalk_TextBox.Enabled = false;
                     Sand_Msg.Enabled = false;
 
                     Select_File.Enabled = false;
@@ -322,7 +325,7 @@ namespace Client
                     UserList.Enabled = true;
 
 
-                    Msg_txt.Enabled = true;
+                    iTalk_TextBox.Enabled = true;
                     Sand_Msg.Enabled = true;
 
                     Select_File.Enabled = true;
@@ -355,6 +358,7 @@ namespace Client
                     }
 
                 }));
+            UserList.Items.Remove("");
         }
         /// <summary>
         /// 다른유저가 접속
@@ -366,6 +370,8 @@ namespace Client
                         {
                             UserList.Items.Add(sUserID);
                         }));
+
+            DisplayMsg(" - " + sUserID + " : 님이 입장하셧습니다 - ");
         }
 
         /// <summary>
@@ -379,6 +385,8 @@ namespace Client
                         {
                             UserList.Items.RemoveAt(UserList.FindString(sUserID));
                         }));
+            DisplayMsg(" - "  + sUserID + " : 님이 퇴장하셧습니다 - ");
+
         }
 
         /// <summary>
@@ -416,26 +424,30 @@ namespace Client
         /// <param name="e"></param>
         private void Sand_Msg_Click(object sender, EventArgs e)
         {
-            StringBuilder sbData = new StringBuilder();
-            sbData.Append(gCommand.Command.Msg.GetHashCode());
-            sbData.Append(claGlobal.g_Division);
-            sbData.Append(Msg_txt.Text);
+            if (iTalk_TextBox.Text != "")
+            {
+                StringBuilder sbData = new StringBuilder();
+                sbData.Append(gCommand.Command.Msg.GetHashCode());
+                sbData.Append(claGlobal.g_Division);
+                sbData.Append(iTalk_TextBox.Text);
 
-            SendMsg(sbData.ToString());
+                SendMsg(sbData.ToString());
 
-            Msg_txt.Text = ""; //메시지 전송후 초기화
+                iTalk_TextBox.Text = ""; //메시지 전송후 초기화
+            }
         }
         /// <summary>
         /// 메시지전송 엔터키 입력
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Msg_txt_KeyPress(object sender, KeyPressEventArgs e)
+        private void ITalk_TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '\r')
+            if(e.KeyChar == (char)13)
             {
                 Sand_Msg_Click(sender, e);
             }
+            
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -458,6 +470,30 @@ namespace Client
         }
 
         private void Sand_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void List_Click(object sender, EventArgs e)
+        {
+            if(list.Text == "▼")
+            {
+                this.Height = 640;
+                list.Text = "▲";
+            }
+            else if(list.Text == "▲")
+            {
+                this.Height = 436;
+                list.Text = "▼";
+            }
+            
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
 
         }

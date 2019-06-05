@@ -39,10 +39,7 @@ namespace SocketGlobal
             /// 접속을 끊은 유저가 있다
             /// </summary>
             User_Disconnect,
-            /// <summary>
-            /// 접속을 끊은 유저가 있다.
-            /// </summary>
-            User_Disonnect,
+
 
             /// <summary>
             /// 유저 리스트를 보냅니다

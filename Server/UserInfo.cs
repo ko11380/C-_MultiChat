@@ -70,15 +70,13 @@ namespace Server
 
             //데이터 구조 생성
             MessageData MsgData = new MessageData();
-            //리시브용 인스턴스 생성
+
             SocketAsyncEventArgs saeaReceiveArgs = new SocketAsyncEventArgs();
-            //리시브용 데이터 구조 지정
+
             saeaReceiveArgs.UserToken = MsgData;
-            //리시브용 데이터버퍼 설정
             saeaReceiveArgs.SetBuffer(MsgData.GetBuffer(), 0, 4);
-            //유저한테서 넘어온 데이터 받음 완료 이벤트 연결
             saeaReceiveArgs.Completed += new EventHandler<SocketAsyncEventArgs>(Recieve_Completed);
-            //데이터 받기 시작
+
             m_socketMe.ReceiveAsync(saeaReceiveArgs);
         }
 

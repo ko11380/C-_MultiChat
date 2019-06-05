@@ -39,5 +39,6 @@ namespace Server
             this.m_strPw = strPw;
             this.m_typeCommand = typeCommand;
         }
+        
     }
 }

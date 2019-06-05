@@ -30,7 +30,6 @@ namespace Server
     #endregion
     public partial class ServerMain : Form
     {
-        private byte[] szData;
 
         /// <summary>
         /// 접속한 유저 리스트(로그인 완료전 포함)
@@ -38,7 +37,6 @@ namespace Server
         private List<UserInfo> m_listUser = null;
 
         private Socket socketServer;
-        private List<Socket> m_ClientSocket;
 
 
         public ServerMain()
@@ -158,9 +156,6 @@ namespace Server
         #region 유저이벤트
         void insUser_OnConnected(UserInfo sender)
         {
-            //유저 추가는 'Accept_Completed'에서 하므로 
-            //여기서 하는 것은 무결성 검사가 끝난 유저를 처리 해주는 것이다.
-
             StringBuilder sbMsg = new StringBuilder(); ;
 
             //로그인이 완료된 유저에게 유저 리스트를 보낸다.
@@ -184,9 +179,9 @@ namespace Server
 
             //로그 남기기
             sbMsg.Clear();
-            sbMsg.Append("*** 접속자 : ");
+            sbMsg.Append("- 접속자 : ");
             sbMsg.Append(sender.UserID);
-            sbMsg.Append(" ***");
+            sbMsg.Append(" -");
             DisplayLog(sbMsg.ToString());
         }
 
@@ -197,20 +192,31 @@ namespace Server
         /// <param name="e"></param>
         void insUser_OnDisconnected(UserInfo sender)
         {
+            StringBuilder sbMsg = new StringBuilder();
+            sbMsg.Append(" - ");
+            sbMsg.Append(sender.UserID);
+            sbMsg.Append(" : 접속 종료 -");
+
+            DisplayLog(sbMsg.ToString());
+
+            //전체 유저에게 접속종료한 유저를 알린다
+            sbMsg.Clear();
+            sbMsg.Append(gCommand.Command.User_Disconnect.GetHashCode());
+            sbMsg.Append(claGlobal.g_Division);
+            sbMsg.Append(sender.UserID);
+
+            AllUser_Send(sbMsg.ToString());
+
             //로그리스트에서 유저를 지움
-            //출력
             this.Invoke(new Action(
                         delegate ()
                         {
-                            UserList.Items.RemoveAt(UserList.FindString(sender.UserIP));
+                            UserList.Items.RemoveAt(UserList.FindString(sender.UserID));
                         }));
 
-            //로그 기록
-            //DisplayLog(sbMsg.ToString());
 
             //리스트에서 유저를 지움
             m_listUser.Remove(sender);
-
         }
 
         /// <summary>
@@ -254,7 +260,7 @@ namespace Server
             switch (Cmmd_tb.Text)
             {
                 case "@Help":
-                    //HelpPrint();
+                    HelpPrint();
                     MainLog.Items.Add("");
                     break;
                 case "@Start":
@@ -269,13 +275,8 @@ namespace Server
                     MainLog.Items.Clear();
                     MainLog.Items.Add("");
                     break;
-                case "@UserList":
-                    for (int i = 0; i < m_listUser.Count; i++)
-                    {
-                        MainLog.Items.Add(m_listUser[i].UserIP);
-                    }
-                    break;
             }
+            
             Cmmd_tb.Text = ""; //명령어수행후 초기화
         }
 
@@ -292,7 +293,8 @@ namespace Server
             MainLog.Items.Add("        Command List       ");
             MainLog.Items.Add("===========================");
             MainLog.Items.Add("@Start  :  서버를 시작합니다.");
-            MainLog.Items.Add("@Stop  :  서버를 종료합니다.");
+            MainLog.Items.Add("@Stop   :  서버를 종료합니다.");
+            MainLog.Items.Add("@Clear  :  로그를 정리합니다.");
         }
 
         /// <summary>
@@ -327,6 +329,7 @@ namespace Server
                             MainLog.Items.Add(nMessage);
                         }));
 
+           MainLog.SelectedIndex = MainLog.Items.Count-1;
         }
         /// <summary>
         /// 명령 처리 - 유저 리스트 갱신 요청
@@ -397,6 +400,19 @@ namespace Server
 
                 insUser.SendMsg_User(sbMsg.ToString());
             }
+        }
+
+
+        //파일 송.수신
+
+        private void Save_fileSystem()
+        {
+            
+        }
+
+        private void Cmmd_tb_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
