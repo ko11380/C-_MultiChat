@@ -145,6 +145,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UserList);
             this.Controls.Add(this.MainLog);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ServerMain";
             this.Text = "ServerMain";
             this.Load += new System.EventHandler(this.ServerMain_Load);

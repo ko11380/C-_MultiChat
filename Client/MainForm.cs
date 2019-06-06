@@ -68,10 +68,6 @@ namespace Client
             {
                 MessageBox.Show("아이디를 입력후 시도해 주세요", "Err", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (port.Text == "")
-            {
-                MessageBox.Show("포트를 입력후 시도해 주세요", "Err", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             else
             {
                 UserList.Items.Clear();
@@ -79,7 +75,7 @@ namespace Client
                 Set_UI(typeState.Connecting);
 
                 Socket socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint ipepServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), Convert.ToInt32(port.Text));
+                IPEndPoint ipepServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
 
                 SocketAsyncEventArgs saeaServer = new SocketAsyncEventArgs();
                 saeaServer.RemoteEndPoint = ipepServer;

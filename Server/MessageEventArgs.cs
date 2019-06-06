@@ -9,7 +9,7 @@ using SocketGlobal;
 namespace Server
 {
 	/// <summary>
-	/// 메시지 이벤트용 형식입니다.
+	/// 메시지 이벤트
 	/// </summary>
 	public class MessageEventArgs : EventArgs
 	{
@@ -17,7 +17,6 @@ namespace Server
 		/// 메시지
 		/// </summary>
 		public readonly string m_strMsg = "";
-        public readonly string m_strPw = "";
 		/// <summary>
 		/// 메시지 타입
 		/// </summary>
@@ -33,12 +32,5 @@ namespace Server
 			this.m_strMsg = strMsg;
 			this.m_typeCommand = typeCommand;
 		}
-        public MessageEventArgs(string strMsg, string strPw, gCommand.Command typeCommand)
-        {
-            this.m_strMsg = strMsg;
-            this.m_strPw = strPw;
-            this.m_typeCommand = typeCommand;
-        }
-        
     }
 }

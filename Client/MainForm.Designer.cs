@@ -35,8 +35,6 @@
             this.Connect = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.port = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.DialogCall = new System.Windows.Forms.Button();
             this.file_link = new System.Windows.Forms.TextBox();
             this.Sand = new System.Windows.Forms.Button();
@@ -46,9 +44,9 @@
             this.File_List = new System.Windows.Forms.ListView();
             this.전송자 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.종류 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.파일이름 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.다운로드 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.list = new System.Windows.Forms.Button();
-            this.파일이름 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Sand_Msg = new iTalk.iTalk_Button_2();
             this.LoginPanal.SuspendLayout();
             this.SuspendLayout();
@@ -79,8 +77,6 @@
             this.LoginPanal.Controls.Add(this.Connect);
             this.LoginPanal.Controls.Add(this.id);
             this.LoginPanal.Controls.Add(this.label2);
-            this.LoginPanal.Controls.Add(this.port);
-            this.LoginPanal.Controls.Add(this.label1);
             this.LoginPanal.Dock = System.Windows.Forms.DockStyle.Top;
             this.LoginPanal.Location = new System.Drawing.Point(0, 0);
             this.LoginPanal.Name = "LoginPanal";
@@ -125,23 +121,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "닉네임 :";
             this.label2.Click += new System.EventHandler(this.Label2_Click);
-            // 
-            // port
-            // 
-            this.port.Location = new System.Drawing.Point(222, 9);
-            this.port.Name = "port";
-            this.port.Size = new System.Drawing.Size(77, 21);
-            this.port.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F);
-            this.label1.Location = new System.Drawing.Point(175, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "포트 :";
             // 
             // DialogCall
             // 
@@ -228,6 +207,12 @@
             this.종류.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.종류.Width = 74;
             // 
+            // 파일이름
+            // 
+            this.파일이름.Text = "파일이름";
+            this.파일이름.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.파일이름.Width = 91;
+            // 
             // 다운로드
             // 
             this.다운로드.Text = "다운로드";
@@ -245,12 +230,6 @@
             this.list.Text = "▼";
             this.list.UseVisualStyleBackColor = true;
             this.list.Click += new System.EventHandler(this.List_Click);
-            // 
-            // 파일이름
-            // 
-            this.파일이름.Text = "파일이름";
-            this.파일이름.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.파일이름.Width = 91;
             // 
             // Sand_Msg
             // 
@@ -284,8 +263,11 @@
             this.Controls.Add(this.LoginPanal);
             this.Controls.Add(this.UserList);
             this.Controls.Add(this.MainList);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -303,8 +285,6 @@
         private System.Windows.Forms.Panel LoginPanal;
         private System.Windows.Forms.TextBox id;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox port;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Connect;
         private System.Windows.Forms.Button DialogCall;
         private System.Windows.Forms.TextBox file_link;

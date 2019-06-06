@@ -140,12 +140,6 @@ namespace Server
 
             OnMessaged(this, e);
         }
-        private void SendMeg_Main(string sMag,string sMagpw,gCommand.Command typeCommand)
-        {
-            MessageEventArgs e = new MessageEventArgs(sMag,sMagpw,typeCommand);
-
-            OnMessaged(this, e);
-        }
 
         /// <summary>
         /// 넘어온 데이터를 분석 한다.
